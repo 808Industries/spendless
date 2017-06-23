@@ -1,3 +1,6 @@
+
+
+<% if current_user %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   .addCategory
@@ -8,6 +11,7 @@
   #notice {
     color:green;
   }
+
 </style>
 
 
@@ -23,7 +27,6 @@
 
   });
 </script>
-
 
 
 <div class="container">
@@ -93,4 +96,50 @@
 
 <br>
 
+</div>
+<% else %>
+<script type="text/javascript" language="javascript">
+    $(function(){ $('.carousel.carousel-slider').carousel({full_width: true}); });
+</script>
+<script type="text/javascript" language="javascript">
+
+    $(document).ready(function(){
+      $('.slider').slider();
+    });
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<div class="container">
+  <h5 style="color:teal;"> Welcome to Spendless Beta </h5>
+<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: "btn", style:"margin-top:20px" %>
+
+<div class="card" style="margin-top:30px">
+    <div class="card-content">
+      <p> SpendLess version 0.1</p>
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#intro"> Intro </a></li>
+        <li class="tab"><a href="#features"> Features </a></li>
+        <li class="tab"><a href="#mission"> Mission </a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="intro"> Welcome to Spendless, a simple, lightweight finance tracking application. We are currently in version 0.1 </div>
+      <div id="features"> Current features:
+       <li> Balance tracking by budget setting </li>
+       <li> Log of added expenses </li>
+       <li> Category Graphs </li>
+       <li> Daily Spending Graphs </li>
+    </div>
+      <div id="mission"> Our mission is simple. There are too many of those 'automated finance tracker' out there who uses your bank account to create a log. They use machine learning or whatever buzzword thrown around in the Valley these days and claim they can help you save money. We don't believe that, you are your own boss and you should know how your money have been spent, and SpendLess tries to achieve by helping you easily visualizing how you have been spending your money.</div>
+    </div>
+  </div>
+
+
+        
+
+      
+<% end %>
 </div>

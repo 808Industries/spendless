@@ -4,20 +4,20 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    if User.count < 1
-      @user = User.new
-      @user.current_balance = 0.0
-      @user.save
-    else
-      @user = User.all.first
+    @user = current_user
+    if current_user != nil and current_user.current_balance == nil
+      current_user.current_balance = 0.0
+      current_user.save
     end
-    @expense_this_week = Expense.where(:created_at => Time.now.beginning_of_week..Time.now, :gains => false).sum("amount")
-    @expense = Expense.new
-    @category = Category.new
-    category = Category.all
-    @category_data = category.map{|c| [c.name,c.expenses.sum("amount")]}.to_h
-    @daily_expense_data = Expense.group_by_day(:created_at).sum("amount")
-    @expenses = Expense.paginate(:page => params[:page], :per_page => 5).where(:created_at => 30.days.ago..Time.now).order("created_at DESC")
+    if current_user != nil
+      @expense_this_week = current_user.expenses.where(:created_at => Time.now.beginning_of_week..Time.now, :gains => false).sum("amount")
+      @expense = Expense.new
+      @category = Category.new
+      category = Category.where(user_id: current_user.id)
+      @category_data = category.map{|c| [c.name,c.expenses.where(user_id: current_user.id).sum("amount")]}.to_h
+      @daily_expense_data = current_user.expenses.group_by_day(:created_at).sum("amount")
+      @expenses = current_user.expenses.paginate(:page => params[:page], :per_page => 5).where(:created_at => 30.days.ago..Time.now).order("created_at DESC")
+    end
   end
 
   # GET /expenses/1
@@ -38,7 +38,8 @@ class ExpensesController < ApplicationController
   # POST /expenses.json
   def create
     @expense = Expense.new(expense_params)
-    @user = User.all.first
+    @user = current_user
+    @expense.user_id = current_user.id    
     if @expense.gains
       @user.current_balance = @user.current_balance + @expense.amount
     else
@@ -75,7 +76,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
-    @user = User.all.first
+    @user = current_user
     if @expense.gains
       @user.current_balance = @user.current_balance - @expense.amount
     else

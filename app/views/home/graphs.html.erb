@@ -10,10 +10,10 @@
 </script>
 
 <div class="container">
-
+  <h5 style="text-align: center"> Comparison Charts </h5>
     <a><%= pie_chart(@this_week_category_data) %>
       <p style="text-align:center;"> This Week </p>
- 	  </a>
+    </a>
 
 
     <a><%= pie_chart(@last_week_category_data) %>
@@ -33,22 +33,31 @@
       <p style="text-align:center"> All Time </p> -->
 
     </a>
-  </div>
 
-	<div class="carousel carousel-slider center" data-indicators="true">
+  <div class="carousel carousel-slider center" data-indicators="true">
 
     <a class="carousel-item"><%= line_chart @daily_expense_data %>
-      <p style="text-align:center;"> Last Week </p>
- 	</a>
-    <a class="carousel-item"><%= line_chart @weekly_expense_data %>
-      <p style="text-align:center"> Last Month </p>
+      <p style="text-align:center;"> Daily Expense </p>
+  </a>
+    <a class="carousel-item"><%= column_chart @weekly_expense_data %>
+      <p style="text-align:center"> Weekly Expense </p>
 
     </a>
-    <a class="carousel-item"><%= line_chart @monthly_expense_data %>
-      <p style="text-align:center"> Last Year </p>
+    <a class="carousel-item"><%= column_chart @monthly_expense_data %>
+      <p style="text-align:center"> Monthly Expense </p>
 
    </a>
    </div>
+
+  <h5 style="text-align: center"> All Time Charts </h5>
+
+    <a><%= pie_chart(@all_time_category_data) %>
+      <p style="text-align:center;"> All Time </p>
+    </a>
+
+       <a><%= line_chart(@category_multiseries) %>
+      <p style="text-align:center;"> All Time </p>
+      </a>
 <!--   <div class="row">
     <div class="col s12">
       <ul class="tabs">
@@ -58,14 +67,15 @@
         <li class="tab col s3"><a href="#alltime">All Time</a></li>
       </ul>
     </div>
-    <div id="lastweek" class="col s12">  	 </div>
-    <div id="lastmonth" class="col s12"> 	 <%= pie_chart(@category_data) %> </div>
+    <div id="lastweek" class="col s12">    </div>
+    <div id="lastmonth" class="col s12">   <%= pie_chart(@category_data) %> </div>
     <div id="lastyear" class="col s12"><%= pie_chart(@category_data) %> </div>
     <div id="alltime" class="col s12"><%= pie_chart(@category_data) %></div>
   </div> -->
 
-	<!-- <%= line_chart @daily_expense_data %>
-	<%= geo_chart({'United States'=>"44", 'Germany'=>"23", 'Brazil'=> "22"}) %>
-	-->
+  <!-- <%= line_chart @daily_expense_data %>
+  <%= geo_chart({'United States'=>"44", 'Germany'=>"23", 'Brazil'=> "22"}) %>
+  -->
+  </div>
 
 </div>

@@ -20,7 +20,7 @@
 
     <br/>
 
-    <%  Category.all.each do |item| %>
+    <%  Category.where(user_id: current_user.id).each do |item| %>
 
       <%= f.radio_button :category_id, item.id %>
       <%= f.label :category_id, item.name, :value => item.id %>

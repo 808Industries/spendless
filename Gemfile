@@ -14,6 +14,8 @@ gem 'material_icons'
 gem "react-rails"
 gem "chartkick"
 gem 'groupdate'
+gem 'omniauth-facebook'
+gem 'omniauth'
 
 
 group :development, :test do

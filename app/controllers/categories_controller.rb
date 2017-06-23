@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.where(user_id: current_user.id)
   end
 
   # GET /categories/1
@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
-
+    @category.user_id = current_user.id
     respond_to do |format|
       if @category.save
         format.html { redirect_to '/expenses', notice: 'Category was successfully created.' }
